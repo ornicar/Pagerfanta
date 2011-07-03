@@ -26,7 +26,7 @@ use Pagerfanta\Exception\OutOfRangeCurrentPageException;
  *
  * @api
  */
-class Pagerfanta implements PagerfantaInterface
+class Pagerfanta implements PagerfantaInterface, \IteratorAggregate
 {
     private $adapter;
     private $maxPerPage;
@@ -105,7 +105,7 @@ class Pagerfanta implements PagerfantaInterface
     public function setCurrentPage($currentPage, $allowOutOfRangePages = false, $normalizeOutOfRangePages = false)
     {
         // tries to normalize from string to integer
-        if (is_string($currentPage) && (int) $currentPage == $currentPage) {
+        if ((is_string($currentPage) || is_float($currentPage)) && (int) $currentPage == $currentPage) {
             $currentPage = (int) $currentPage;
         }
 
